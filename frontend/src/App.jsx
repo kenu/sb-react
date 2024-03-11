@@ -1,36 +1,35 @@
-import "./App.css";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-function App() {
-  let list = [
-    {
-      id: 1,
-      firstName: "Elon",
-      lastName: "Mask",
-    },
-    {
-      id: 2,
-      firstName: "Bill",
-      lastName: "Jobs",
-    },
-  ];
-  list = [];
+const client = axios.create({
+  baseURL: "http://localhost:8080",
+});
+
+const App = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await client.get("/users");
+        setPosts(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchPosts();
+  }, []);
+
   return (
-    <>
-      <div>
-        <h1>Hello, React!</h1>
-        <input type="text" name="firstName" placeholder="first name" required/>
-        <input type="text" name="lastName" placeholder="last name" required/>
-        <button>send</button>
-      </div>
-      <ul>
-        {list.length > 0 ? list.map(user => {
-          return (
-            <li>{user.firstName} {user.lastName}</li>
-          )
-        }) : <li>No user</li>}
-      </ul>
-    </>
+    <div>
+      {posts.map((post) => (
+        <div key={post.id}>
+          <h2>{post.title}</h2>
+          <p>{post.body}</p>
+        </div>
+      ))}
+    </div>
   );
-}
+};
 
 export default App;
