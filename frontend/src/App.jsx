@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./App.css";
 
 const client = axios.create({
   baseURL: "http://localhost:8080",
@@ -21,14 +22,27 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      {users.map((user) => (
-        <div key={user.id}>
-          <h2>{user.firstName}</h2>
-          <p>{user.lastName}</p>
-        </div>
-      ))}
-    </div>
+    <>
+      <div>
+        <h1>Hello, React!</h1>
+        <input type="text" name="firstName" placeholder="first name" required />
+        <input type="text" name="lastName" placeholder="last name" required />
+        <button>send</button>
+      </div>
+      <ul>
+        {users.length > 0 ? (
+          users.map((user) => {
+            return (
+              <li key={user.id}>
+              {user.id}  {user.firstName} {user.lastName}
+              </li>
+            );
+          })
+        ) : (
+          <li>No user</li>
+        )}
+      </ul>
+    </>
   );
 };
 
