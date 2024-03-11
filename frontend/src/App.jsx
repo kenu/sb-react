@@ -6,26 +6,26 @@ const client = axios.create({
 });
 
 const App = () => {
-  const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchUsers = async () => {
       try {
         const response = await client.get("/users");
-        setPosts(response.data);
+        setUsers(response.data._embedded.users);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchPosts();
+    fetchUsers();
   }, []);
 
   return (
     <div>
-      {posts.map((post) => (
-        <div key={post.id}>
-          <h2>{post.title}</h2>
-          <p>{post.body}</p>
+      {users.map((user) => (
+        <div key={user.id}>
+          <h2>{user.firstName}</h2>
+          <p>{user.lastName}</p>
         </div>
       ))}
     </div>
