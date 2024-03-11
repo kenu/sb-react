@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,
+@CrossOrigin(origins = "*", methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT,
     RequestMethod.OPTIONS }, maxAge = 3600)
 @RepositoryRestResource(collectionResourceRel = "users", path = "users")
 public interface PersonRepository extends CrudRepository<Person, Long> {

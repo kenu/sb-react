@@ -46,7 +46,7 @@ const App = () => {
       lastName,
     };
     if (user.id) {
-      client.post("/users", user).then((_response) => {
+      client.put(`/users/${user.id}`, user).then((_response) => {
         window.location.reload();
       });
     } else {
